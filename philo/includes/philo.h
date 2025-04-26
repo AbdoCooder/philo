@@ -6,7 +6,7 @@
 /*   By: abenajib <abenajib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 20:59:26 by codespace         #+#    #+#             */
-/*   Updated: 2025/02/12 18:03:52 by abenajib         ###   ########.fr       */
+/*   Updated: 2025/04/24 14:45:45 by abenajib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,6 @@
 # define CYAN "\033[0;96m"
 # define WHITE "\033[0;97m"
 
-//Enums
-typedef enum e_mode
-{
-	CREATE,
-	LOCK,
-	UNLOCK,
-	DESTROY,
-	INIT
-}	t_mode;
-
 //Macros
 # define TRUE 1
 # define FALSE 0
@@ -56,22 +46,34 @@ typedef enum e_mode
 # define TIME_TO_SLEEP_ARG 4
 # define NBR_OF_TIMES_TO_EAT_ARG 5
 
-//aliases
+//Enums
+typedef enum e_mode
+{
+	CREATE,
+	LOCK,
+	UNLOCK,
+	DESTROY,
+	DETACH,
+	JOIN,
+	INIT
+}	t_mode;
+
+//types
 typedef pthread_mutex_t	t_mtx;
-typedef pthread_t		t_trd;
+typedef pthread_t		t_pthread;
 typedef struct s_philo	t_philo;
 
 //structures
-typedef struct s_fork
-{
-	t_mtx	fork;
-	int		id;
-}			t_fork;
+// typedef struct s_fork
+// {
+// 	t_mtx	fork;
+// 	int		id;
+// }			t_fork;
 
 typedef struct s_table
 {
-	t_fork	*forks;
-	t_philo	*philos;
+	t_mtx	*forks;
+	t_philo	*philos;//
 	long	start;
 	long	end;
 	long	nbr_of_philos;
@@ -79,24 +81,19 @@ typedef struct s_table
 	long	time_to_eat;
 	long	time_to_sleep;
 	long	nbr_of_times_to_eat;
-	bool	all_threads_ready;
-	t_mtx	table_mutex;
 }			t_table;
 
 struct s_philo
 {
-	int				id;
-	t_trd			t;
+	t_pthread		t;
 	t_table			*table;
-	t_fork			*first_fork;
-	t_fork			*second_fork;
+	t_mtx			first_fork;
+	t_mtx			second_fork;
 	long			eaten_m;
 	long			last_m;
 	bool			is_full;
-	struct s_philo	*next;
 };
 
-//functions
 
 //checkers
 bool		ft_check_args(int ac, char **av);
@@ -105,24 +102,28 @@ bool		fancy_typing(int ac);
 //error
 void		ft_error(char *error, char *warning);
 void		ft_mutex_errors(int status, t_mode mode);
+void		ft_thread_errors(int status, t_mode mode);
 
-//mutex
+//modes
 void		ft_mutex_mode(t_mtx *mtx, t_mode mode);
+void		ft_pthread_mode(t_pthread *thread, void *(*routine)(void* data),
+						void *data, t_mode mode);
 
-//initiation
-void		ft_init_table(t_table *table, int ac, char **av);
+//inits
 void		ft_init(t_table *table, int ac, char **av);
+void		ft_init_table(t_table *table, int ac, char **av);
+void		*routine(void *data);
 void		ft_init_philos(t_table *table);
-void		ft_assign_forks(t_philo *philo, t_fork *forks, int i);
+void		ft_assign_forks(t_philo *philo, t_mtx *forks, int i);
 
 //utils
 long long	ft_atoi(const char *str);
 void		*ft_malloc(size_t bytes);
 
 //setters_getters
-void		set_bool(t_mtx *mutex, bool *dest, bool value);
-bool		get_bool(t_mtx *mutex, bool *dest);
-void		set_long(t_mtx *mutex, long *dest, long value);
-long		get_long(t_mtx *mutex, long *dest);
+void		ft_setBool(t_mtx *mutex, bool *dest, bool value);
+bool		ft_getBool(t_mtx *mutex, bool *dest);
+void		ft_setLong(t_mtx *mutex, long *dest, long value);
+long		ft_getLong(t_mtx *mutex, long *dest);
 
 #endif

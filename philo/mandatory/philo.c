@@ -6,7 +6,7 @@
 /*   By: abenajib <abenajib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 18:41:53 by abenajib          #+#    #+#             */
-/*   Updated: 2025/04/22 15:02:49 by abenajib         ###   ########.fr       */
+/*   Updated: 2025/04/22 17:29:12 by abenajib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ void	ft_start_simulation(t_table *table);
 
 int	main(int ac, char **av)
 {
-	// t_table	table;
+	t_table	table;
 
 	if (!ft_check_args(ac, av))
 		return (FAILURE);
-	// ft_init(&table, ac, av);
+	ft_init(&table, ac, av);
 	// ft_start_simulation(&table);
-	// free(table.philos);
-	// free(table.forks);
+	free(table.philos);
+	free(table.forks);
 	return (SUCCESS);
 }
 

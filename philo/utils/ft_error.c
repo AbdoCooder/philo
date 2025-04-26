@@ -6,7 +6,7 @@
 /*   By: abenajib <abenajib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 21:15:09 by codespace         #+#    #+#             */
-/*   Updated: 2025/02/11 20:27:33 by abenajib         ###   ########.fr       */
+/*   Updated: 2025/04/22 18:07:25 by abenajib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,22 @@ void	ft_mutex_errors(int status, t_mode mode)
 			ft_error("Error: pthread_mutex_destroy\n", NULL);
 		else if (mode == INIT)
 			ft_error("Error: pthread_mutex_init\n", NULL);
-		exit(1);
+		return ;
+	}
+}
+
+void	ft_thread_errors(int status, t_mode mode)
+{
+	if (status == SUCCESS)
+		return ;
+	else
+	{
+		if (mode == CREATE)
+			ft_error("Error: pthread_create\n", NULL);
+		else if (mode == DETACH)
+			ft_error("Error: pthread_detach\n", NULL);
+		else if (mode == JOIN)
+			ft_error("Error: pthread_join\n", NULL);
+		return ;
 	}
 }

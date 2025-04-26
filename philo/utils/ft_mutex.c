@@ -25,3 +25,16 @@ void	ft_mutex_mode(t_mtx *mtx, t_mode mode)
 	else
 		ft_error("Error: invalid mode\n", NULL);
 }
+
+void	ft_pthread_mode(t_pthread *thread, void *(*routine)(void* data), void *data, t_mode mode)
+{
+	if (mode == CREATE)
+		ft_thread_errors(pthread_create(thread, NULL, routine, data), mode);
+	else if (mode == DETACH)
+		ft_thread_errors(pthread_detach(*thread), mode);
+	else if (mode == JOIN)
+		ft_thread_errors(pthread_join(*thread, NULL), mode);
+	else
+		ft_error("Error: invalid mode\n", NULL);
+}
+
