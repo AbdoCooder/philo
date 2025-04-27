@@ -6,7 +6,7 @@
 /*   By: abenajib <abenajib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 16:05:06 by abenajib          #+#    #+#             */
-/*   Updated: 2025/04/22 16:22:02 by abenajib         ###   ########.fr       */
+/*   Updated: 2025/04/27 18:53:28 by abenajib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	*ft_malloc(size_t bytes)
 	if (!ptr)
 	{
 		printf("Malloc failed\n");
-		return(NULL);
+		return (NULL);
 	}
 	return (ptr);
 }

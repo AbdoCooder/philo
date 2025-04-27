@@ -6,12 +6,11 @@
 /*   By: abenajib <abenajib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 13:43:19 by abenajib          #+#    #+#             */
-/*   Updated: 2025/04/24 12:15:44 by abenajib         ###   ########.fr       */
+/*   Updated: 2025/04/27 18:51:59 by abenajib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
-
 
 bool	fancy_typing(int ac)
 {

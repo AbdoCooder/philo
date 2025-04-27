@@ -6,7 +6,7 @@
 /*   By: abenajib <abenajib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:15:25 by abenajib          #+#    #+#             */
-/*   Updated: 2025/04/27 17:59:50 by abenajib         ###   ########.fr       */
+/*   Updated: 2025/04/27 18:52:12 by abenajib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ void	ft_init(t_table *table, int ac, char **av)
 		table->nbr_of_times_to_eat = ft_atoi(av[NBR_OF_TIMES_TO_EAT_ARG]);
 	else
 		table->nbr_of_times_to_eat = ERROR;
-
 	table->philos = ft_malloc(sizeof(t_philo) * table->nbr_of_philos);
 	table->forks = ft_malloc(sizeof(t_mtx) * table->nbr_of_philos);
 	ft_init_philos(table);
 	while (++i < table->nbr_of_philos)
 	{
 		ft_mutex_mode(&table->forks[i], INIT);
-		ft_pthread_mode(&table->philos[i].t, routine, &table->philos[i], CREATE);
+		ft_pthread_mode(&table->philos[i].t, routine, &table->philos[i],
+			CREATE);
 	}
 	ft_mutex_mode(&table->printer, INIT);
 	ft_mutex_mode(&table->eatmtx, INIT);

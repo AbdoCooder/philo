@@ -15,18 +15,19 @@
 void	ft_mutex_mode(t_mtx *mtx, t_mode mode)
 {
 	if (mode == LOCK)
-		ft_mutex_errors(pthread_mutex_lock(mtx), mode);
+		pthread_mutex_lock(mtx);
 	else if (mode == UNLOCK)
-		ft_mutex_errors(pthread_mutex_unlock(mtx), mode);
+		pthread_mutex_unlock(mtx);
 	else if (mode == DESTROY)
-		ft_mutex_errors(pthread_mutex_destroy(mtx), mode);
+		pthread_mutex_destroy(mtx);
 	else if (mode == INIT)
-		ft_mutex_errors(pthread_mutex_init(mtx, NULL), mode);
+		pthread_mutex_init(mtx, NULL);
 	else
 		ft_error("Error: invalid mode\n", NULL);
 }
 
-void	ft_pthread_mode(t_pthread *thread, void *(*routine)(void* data), void *data, t_mode mode)
+void	ft_pthread_mode(t_pthread *thread, void *(*routine)(void *data),
+			void *data, t_mode mode)
 {
 	if (mode == CREATE)
 		ft_thread_errors(pthread_create(thread, NULL, routine, data), mode);
@@ -37,4 +38,3 @@ void	ft_pthread_mode(t_pthread *thread, void *(*routine)(void* data), void *data
 	else
 		ft_error("Error: invalid mode\n", NULL);
 }
-

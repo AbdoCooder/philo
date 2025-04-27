@@ -6,7 +6,7 @@
 /*   By: abenajib <abenajib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 20:59:26 by codespace         #+#    #+#             */
-/*   Updated: 2025/04/27 18:13:01 by abenajib         ###   ########.fr       */
+/*   Updated: 2025/04/27 18:50:40 by abenajib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,8 @@ void		ft_thread_errors(int status, t_mode mode);
 
 //modes
 void		ft_mutex_mode(t_mtx *mtx, t_mode mode);
-void		ft_pthread_mode(t_pthread *thread, void *(*routine)(void* data),
-						void *data, t_mode mode);
+void		ft_pthread_mode(t_pthread *thread, void *(*routine)(void *data),
+				void *data, t_mode mode);
 
 //inits
 void		ft_init(t_table *table, int ac, char **av);
@@ -133,11 +133,11 @@ void		ft_print(t_philo *philo, t_action action);
 int			ft_usleep(useconds_t t);
 
 //setters_getters
-void		ft_setBool(t_mtx *mutex, bool *dest, bool value);
-bool		ft_getBool(t_mtx *mutex, bool *dest);
-void		ft_setLong(t_mtx *mutex, long *dest, long value);
-long		ft_getLong(t_mtx *mutex, long *dest);
-long		ft_getTime(void);
+void		ft_set_bool(t_mtx *mutex, bool *dest, bool value);
+bool		ft_get_bool(t_mtx *mutex, bool *dest);
+void		ft_set_long(t_mtx *mutex, long *dest, long value);
+long		ft_get_long(t_mtx *mutex, long *dest);
+long		ft_get_time(void);
 
 // simulation
 void		*routine(void *data);

@@ -9,6 +9,7 @@ SRCS=	./mandatory/$(TARGET).c \
 		./utils/my_malloc.c \
 		./utils/ft_init.c \
 		./utils/ft_printer.c \
+		./utils/setsGets.c \
 
 RM = rm -rf
 NAME = $(TARGET).a
