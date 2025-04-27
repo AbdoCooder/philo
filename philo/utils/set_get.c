@@ -6,7 +6,7 @@
 /*   By: abenajib <abenajib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:52:39 by abenajib          #+#    #+#             */
-/*   Updated: 2025/04/24 12:13:49 by abenajib         ###   ########.fr       */
+/*   Updated: 2025/04/27 18:09:25 by abenajib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,13 @@ long	ft_getLong(t_mtx *mutex, long *dest)
 	ret = *dest;
 	ft_mutex_mode(mutex, UNLOCK);
 	return (ret);
+}
+
+long	ft_getTime(void)
+{
+	struct timeval	time;
+
+	if (gettimeofday(&time, NULL) == -1)
+		return (printf("-1"), 0);
+	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }

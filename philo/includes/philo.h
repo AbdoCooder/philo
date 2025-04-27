@@ -6,7 +6,7 @@
 /*   By: abenajib <abenajib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 20:59:26 by codespace         #+#    #+#             */
-/*   Updated: 2025/04/24 14:45:45 by abenajib         ###   ########.fr       */
+/*   Updated: 2025/04/27 18:13:01 by abenajib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,15 @@ typedef enum e_mode
 	INIT
 }	t_mode;
 
+typedef enum e_action
+{
+	EAT,
+	SLEEP,
+	THINK,
+	FORK,
+	DIE
+}	t_action;
+
 //types
 typedef pthread_mutex_t	t_mtx;
 typedef pthread_t		t_pthread;
@@ -72,28 +81,31 @@ typedef struct s_philo	t_philo;
 
 typedef struct s_table
 {
-	t_mtx	*forks;
-	t_philo	*philos;//
-	long	start;
-	long	end;
-	long	nbr_of_philos;
-	long	time_to_die;
-	long	time_to_eat;
-	long	time_to_sleep;
-	long	nbr_of_times_to_eat;
+	t_mtx		*forks;
+	t_philo		*philos;
+	t_pthread	*monitor;
+	long		start;
+	bool		end;
+	long		nbr_of_philos;
+	long		time_to_die;
+	long		time_to_eat;
+	long		time_to_sleep;
+	long		nbr_of_times_to_eat;
+	t_mtx		printer;
+	t_mtx		eatmtx;
 }			t_table;
 
 struct s_philo
 {
+	int				id;
 	t_pthread		t;
 	t_table			*table;
-	t_mtx			first_fork;
-	t_mtx			second_fork;
+	t_mtx			*first_fork;
+	t_mtx			*second_fork;
 	long			eaten_m;
 	long			last_m;
 	bool			is_full;
 };
-
 
 //checkers
 bool		ft_check_args(int ac, char **av);
@@ -111,19 +123,23 @@ void		ft_pthread_mode(t_pthread *thread, void *(*routine)(void* data),
 
 //inits
 void		ft_init(t_table *table, int ac, char **av);
-void		ft_init_table(t_table *table, int ac, char **av);
-void		*routine(void *data);
 void		ft_init_philos(t_table *table);
 void		ft_assign_forks(t_philo *philo, t_mtx *forks, int i);
 
 //utils
 long long	ft_atoi(const char *str);
 void		*ft_malloc(size_t bytes);
+void		ft_print(t_philo *philo, t_action action);
+int			ft_usleep(useconds_t t);
 
 //setters_getters
 void		ft_setBool(t_mtx *mutex, bool *dest, bool value);
 bool		ft_getBool(t_mtx *mutex, bool *dest);
 void		ft_setLong(t_mtx *mutex, long *dest, long value);
 long		ft_getLong(t_mtx *mutex, long *dest);
+long		ft_getTime(void);
+
+// simulation
+void		*routine(void *data);
 
 #endif
