@@ -6,7 +6,7 @@
 /*   By: abenajib <abenajib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:15:25 by abenajib          #+#    #+#             */
-/*   Updated: 2025/04/29 11:49:46 by abenajib         ###   ########.fr       */
+/*   Updated: 2025/04/29 21:17:02 by abenajib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,12 @@ void	ft_init_philos(t_table *table)
 
 void	ft_assign_forks(t_philo *philo, t_mtx *forks, int i)
 {
+	if (philo->table->nbr_of_philos == 1)
+	{
+		philo->first_fork = &forks[0];
+		philo->second_fork = &forks[0];
+		return ;
+	}
 	if (i == 0)
 	{
 		philo->first_fork = &forks[0];

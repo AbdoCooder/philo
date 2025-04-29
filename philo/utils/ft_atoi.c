@@ -6,7 +6,7 @@
 /*   By: abenajib <abenajib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 20:04:35 by abenajib          #+#    #+#             */
-/*   Updated: 2025/04/29 10:43:00 by abenajib         ###   ########.fr       */
+/*   Updated: 2025/04/29 19:20:08 by abenajib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,21 @@ long long	ft_atoi(const char *str)
 
 int	ft_usleep(t_philo *philo, useconds_t t)
 {
-	useconds_t	i;
+	struct timeval start, current;
+	long int elapsed;
 
-	i = 0;
-	while (i < t)
+	gettimeofday(&start, NULL);
+	while (1)
 	{
-		if (ft_get_bool(&philo->table->deadcheck, &philo->table->end) == true)
+		if (ft_get_bool(&philo->table->deadcheck, &philo->table->end))
 			return (1);
-		usleep(100);
-		i += 100;
+		gettimeofday(&current, NULL);
+		// 1 second = 1,000,000 microseconds
+		elapsed = (current.tv_sec - start.tv_sec) * 1000000L +
+				(current.tv_usec - start.tv_usec);
+		if (elapsed >= t)
+			break;
+		usleep(1);
 	}
 	return (0);
 }
