@@ -6,7 +6,7 @@
 /*   By: abenajib <abenajib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 18:41:53 by abenajib          #+#    #+#             */
-/*   Updated: 2025/04/27 18:51:42 by abenajib         ###   ########.fr       */
+/*   Updated: 2025/04/29 09:14:45 by abenajib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	*routine(void *data)
 	}
 	while (1)
 	{
+		ft_print(philo, THINK);
 		ft_mutex_mode(philo->first_fork, LOCK);
 		ft_print(philo, FORK);
 		ft_mutex_mode(philo->second_fork, LOCK);
@@ -43,17 +44,18 @@ void	*routine(void *data)
 		ft_eat(philo);
 		ft_print(philo, SLEEP);
 		usleep(philo->table->time_to_sleep * 1e3);
-		ft_print(philo, THINK);
 	}
 	return (NULL);
 }
 
 void	*monitor(void *data)
 {
-	t_philo	*philo;
+	t_table	*table;
 
-	philo = (t_philo *)data;
-	ft_usleep(philo->id);
+	table = (t_table *)data;
+	while (1)
+		if (ft_isdead(table) || ft_isfull())
+			break ;
 	return (NULL);
 }
 
