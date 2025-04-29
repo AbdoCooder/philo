@@ -6,7 +6,7 @@
 /*   By: abenajib <abenajib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 18:41:53 by abenajib          #+#    #+#             */
-/*   Updated: 2025/04/29 11:30:10 by abenajib         ###   ########.fr       */
+/*   Updated: 2025/04/29 12:01:26 by abenajib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,13 @@ void	*routine(void *data)
 			return (NULL);
 		ft_print(philo, THINK);
 
+		if (ft_get_bool(&philo->table->deadcheck, &philo->table->end) == true)
+			return (NULL);
 		ft_mutex_mode(philo->first_fork, LOCK);
 		ft_print(philo, FORK);
+
+		if (ft_get_bool(&philo->table->deadcheck, &philo->table->end) == true)
+			return (NULL);
 		ft_mutex_mode(philo->second_fork, LOCK);
 		ft_print(philo, FORK);
 
@@ -104,7 +109,6 @@ int	main(int ac, char **av)
 	if (!ft_check_args(ac, av))
 		return (FAILURE);
 	ft_init(&table, ac, av);
-
 	ft_pthread_mode(table.monitor, monitor, &table, CREATE);
 	i = -1;
 	while (++i < table.nbr_of_philos)
@@ -112,6 +116,7 @@ int	main(int ac, char **av)
 	ft_pthread_mode(table.monitor, monitor, &table, JOIN);
 	free(table.philos);
 	free(table.forks);
+	free(table.monitor);
 	return (SUCCESS);
 }
 

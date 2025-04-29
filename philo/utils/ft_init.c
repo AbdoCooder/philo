@@ -6,7 +6,7 @@
 /*   By: abenajib <abenajib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:15:25 by abenajib          #+#    #+#             */
-/*   Updated: 2025/04/29 10:58:22 by abenajib         ###   ########.fr       */
+/*   Updated: 2025/04/29 11:49:46 by abenajib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	ft_init(t_table *table, int ac, char **av)
 		table->nbr_of_times_to_eat = ERROR;
 	table->philos = ft_malloc(sizeof(t_philo) * table->nbr_of_philos);
 	table->forks = ft_malloc(sizeof(t_mtx) * table->nbr_of_philos);
+	table->monitor = ft_malloc(sizeof(t_pthread));
 	ft_init_philos(table);
 	while (++i < table->nbr_of_philos)
 	{
@@ -45,6 +46,8 @@ void	ft_init_philos(t_table *table)
 	int	i;
 
 	i = -1;
+	if (table->nbr_of_philos == 1)
+		table->nbr_of_times_to_eat = 1;
 	while (++i < table->nbr_of_philos)
 	{
 		table->philos[i].id = i + 1;

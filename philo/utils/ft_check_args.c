@@ -6,7 +6,7 @@
 /*   By: abenajib <abenajib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 13:43:19 by abenajib          #+#    #+#             */
-/*   Updated: 2025/04/27 18:51:59 by abenajib         ###   ########.fr       */
+/*   Updated: 2025/04/29 11:44:48 by abenajib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ bool	ft_check_args(int ac, char **av)
 {
 	if (ac != 5 && ac != 6)
 		return (fancy_typing(ac));
-	if (ft_atoi(av[NBR_OF_PHILOS_ARG]) < 2
+	if (ft_atoi(av[NBR_OF_PHILOS_ARG]) < 1
 		|| ft_atoi(av[NBR_OF_PHILOS_ARG]) > 200)
 		return (ft_error("Invalid Arguments", "\nHint! :number_of_philosophers \
 [2~200]"),
