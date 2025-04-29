@@ -6,7 +6,7 @@
 /*   By: abenajib <abenajib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:15:25 by abenajib          #+#    #+#             */
-/*   Updated: 2025/04/27 18:52:12 by abenajib         ###   ########.fr       */
+/*   Updated: 2025/04/29 10:58:22 by abenajib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_init(t_table *table, int ac, char **av)
 	int	i;
 
 	i = -1;
-	table->end = FALSE;
+	table->end = false;
 	table->nbr_of_philos = ft_atoi(av[NBR_OF_PHILOS_ARG]);
 	table->time_to_die = ft_atoi(av[TIME_TO_DIE_ARG]);
 	table->time_to_eat = ft_atoi(av[TIME_TO_EAT_ARG]);
@@ -37,6 +37,7 @@ void	ft_init(t_table *table, int ac, char **av)
 	}
 	ft_mutex_mode(&table->printer, INIT);
 	ft_mutex_mode(&table->eatmtx, INIT);
+	ft_mutex_mode(&table->deadcheck, INIT);
 }
 
 void	ft_init_philos(t_table *table)

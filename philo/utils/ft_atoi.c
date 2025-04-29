@@ -6,7 +6,7 @@
 /*   By: abenajib <abenajib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 20:04:35 by abenajib          #+#    #+#             */
-/*   Updated: 2025/04/27 18:51:53 by abenajib         ###   ########.fr       */
+/*   Updated: 2025/04/29 10:43:00 by abenajib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,15 @@ long long	ft_atoi(const char *str)
 	return ((result * sign));
 }
 
-int	ft_usleep(useconds_t t)
+int	ft_usleep(t_philo *philo, useconds_t t)
 {
 	useconds_t	i;
 
 	i = 0;
 	while (i < t)
 	{
+		if (ft_get_bool(&philo->table->deadcheck, &philo->table->end) == true)
+			return (1);
 		usleep(100);
 		i += 100;
 	}

@@ -6,7 +6,7 @@
 /*   By: abenajib <abenajib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 20:59:26 by codespace         #+#    #+#             */
-/*   Updated: 2025/04/27 18:50:40 by abenajib         ###   ########.fr       */
+/*   Updated: 2025/04/29 10:42:46 by abenajib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ typedef struct s_table
 	long		nbr_of_times_to_eat;
 	t_mtx		printer;
 	t_mtx		eatmtx;
+	t_mtx		deadcheck;
 }			t_table;
 
 struct s_philo
@@ -130,7 +131,7 @@ void		ft_assign_forks(t_philo *philo, t_mtx *forks, int i);
 long long	ft_atoi(const char *str);
 void		*ft_malloc(size_t bytes);
 void		ft_print(t_philo *philo, t_action action);
-int			ft_usleep(useconds_t t);
+int			ft_usleep(t_philo *philo, useconds_t t);
 
 //setters_getters
 void		ft_set_bool(t_mtx *mutex, bool *dest, bool value);
