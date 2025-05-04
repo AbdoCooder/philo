@@ -6,7 +6,7 @@
 /*   By: abenajib <abenajib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 18:41:53 by abenajib          #+#    #+#             */
-/*   Updated: 2025/05/04 10:35:39 by abenajib         ###   ########.fr       */
+/*   Updated: 2025/05/04 12:07:18 by abenajib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 int	ft_eat(t_philo *philo)
 {
-	// if (ft_get_bool(&philo->table->deadcheck, &philo->table->end) == true)
-	// 	return (1);
 	ft_print(philo, EAT);
 	ft_usleep(philo, philo->table->time_to_eat * 1e3);
 	ft_set_long(&philo->table->eatmtx, &philo->last_m, ft_get_time());
@@ -47,6 +45,9 @@ void	*routine(void *data)
 		if (ft_get_bool(&philo->table->deadcheck, &philo->table->end) == true)
 			return (ft_mutex_mode(philo->first_fork, UNLOCK), NULL);
 		ft_print(philo, FORK);
+
+		if (philo->table->nbr_of_philos == 1)
+			return (ft_usleep(philo, philo->table->time_to_die * 1e3), NULL);
 
 		ft_mutex_mode(philo->second_fork, LOCK);
 		if (ft_get_bool(&philo->table->deadcheck, &philo->table->end) == true)
@@ -104,27 +105,31 @@ int ft_isdead(t_table *table)
 void	*monitor(void *data)
 {
 	t_table *table = (t_table *)data;
+	int i;
 	usleep(1000);
 	while (!ft_isfull(table))
 		if (ft_isdead(table))
 			break;
+	i = -1;
+	while (++i < table->nbr_of_philos)
+		ft_mutex_mode(&table->forks[i], DESTROY);
 	return (NULL);
 }
 
 int	main(int ac, char **av)
 {
 	t_table	table;
-	// int		i;
+	int		i;
 
 	if (!ft_check_args(ac, av))
 		return (FAILURE);
 	ft_init(&table, ac, av);
 
 	ft_pthread_mode(table.monitor, monitor, &table, CREATE);
-	// i = -1;
-	// while (++i < table.nbr_of_philos)
-	// 	ft_pthread_mode(&table.philos[i].t, routine, NULL, JOIN);
 	ft_pthread_mode(table.monitor, monitor, &table, JOIN);
+	i = -1;
+	while (++i < table.nbr_of_philos)
+		ft_pthread_mode(&table.philos[i].t, routine, NULL, JOIN);
 	free(table.philos);
 	free(table.forks);
 	free(table.monitor);

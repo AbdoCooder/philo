@@ -6,7 +6,7 @@
 /*   By: abenajib <abenajib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 20:04:35 by abenajib          #+#    #+#             */
-/*   Updated: 2025/04/29 19:20:08 by abenajib         ###   ########.fr       */
+/*   Updated: 2025/05/04 10:41:47 by abenajib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	ft_usleep(t_philo *philo, useconds_t t)
 				(current.tv_usec - start.tv_usec);
 		if (elapsed >= t)
 			break;
-		usleep(1);
+		usleep(100);
 	}
 	return (0);
 }
