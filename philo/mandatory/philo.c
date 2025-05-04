@@ -6,7 +6,7 @@
 /*   By: abenajib <abenajib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 18:41:53 by abenajib          #+#    #+#             */
-/*   Updated: 2025/04/29 21:10:28 by abenajib         ###   ########.fr       */
+/*   Updated: 2025/05/04 08:56:28 by abenajib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,12 @@ void	*routine(void *data)
 
 		ft_mutex_mode(philo->first_fork, LOCK);
 		if (ft_get_bool(&philo->table->deadcheck, &philo->table->end) == true)
-			return (NULL);
+			return (ft_mutex_mode(philo->first_fork, UNLOCK), NULL);
 		ft_print(philo, FORK);
 
 		ft_mutex_mode(philo->second_fork, LOCK);
 		if (ft_get_bool(&philo->table->deadcheck, &philo->table->end) == true)
-			return (NULL);
+			return (ft_mutex_mode(philo->second_fork, UNLOCK), ft_mutex_mode(philo->first_fork, UNLOCK), NULL);
 		ft_print(philo, FORK);
 
 		if (ft_eat(philo) == 1)
@@ -114,16 +114,16 @@ void	*monitor(void *data)
 int	main(int ac, char **av)
 {
 	t_table	table;
-	int		i;
+	// int		i;
 
 	if (!ft_check_args(ac, av))
 		return (FAILURE);
 	ft_init(&table, ac, av);
 
 	ft_pthread_mode(table.monitor, monitor, &table, CREATE);
-	i = -1;
-	while (++i < table.nbr_of_philos)
-		ft_pthread_mode(&table.philos[i].t, routine, NULL, JOIN);
+	// i = -1;
+	// while (++i < table.nbr_of_philos)
+	// 	ft_pthread_mode(&table.philos[i].t, routine, NULL, JOIN);
 	ft_pthread_mode(table.monitor, monitor, &table, JOIN);
 	free(table.philos);
 	free(table.forks);
