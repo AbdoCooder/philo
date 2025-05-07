@@ -6,7 +6,7 @@
 /*   By: abenajib <abenajib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 18:41:53 by abenajib          #+#    #+#             */
-/*   Updated: 2025/05/04 12:07:18 by abenajib         ###   ########.fr       */
+/*   Updated: 2025/05/07 20:49:09 by abenajib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,20 @@
 
 int	ft_eat(t_philo *philo)
 {
+	long	eaten;
+
 	ft_print(philo, EAT);
-	ft_usleep(philo, philo->table->time_to_eat * 1e3);
-	ft_set_long(&philo->table->eatmtx, &philo->last_m, ft_get_time());
-	ft_set_long(&philo->table->eatmtx, &philo->eaten_m, philo->eaten_m + 1);
+	if (ft_usleep(philo, philo->table->time_to_eat * 1e3) == 1)
+	{
+		ft_mutex_mode(philo->first_fork, UNLOCK);
+		ft_mutex_mode(philo->second_fork, UNLOCK);
+		return (1);
+	}
+	ft_set_long(&philo->table->last_mtx, &philo->last_m, ft_get_time());
+
+	eaten = ft_get_long(&philo->table->eatmtx, &philo->eaten_m);
+	ft_set_long(&philo->table->eatmtx, &philo->eaten_m, eaten + 1);
+
 	ft_mutex_mode(philo->first_fork, UNLOCK);
 	ft_mutex_mode(philo->second_fork, UNLOCK);
 	return (0);
@@ -29,7 +39,7 @@ void	*routine(void *data)
 
 	philo = (t_philo *)data;
 	ft_set_long(&philo->table->eatmtx, &philo->table->start, ft_get_time());
-	ft_set_long(&philo->table->eatmtx, &philo->last_m, philo->table->start);
+	ft_set_long(&philo->table->last_mtx, &philo->last_m, philo->table->start);
 	if (philo->id % 2 == 0)
 	{
 		ft_print(philo, SLEEP);
@@ -58,8 +68,10 @@ void	*routine(void *data)
 			return (NULL);
 		if (ft_get_bool(&philo->table->deadcheck, &philo->table->end) == true)
 			return (NULL);
+
 		ft_print(philo, SLEEP);
-		ft_usleep(philo, philo->table->time_to_sleep * 1e3);
+		if (ft_usleep(philo, philo->table->time_to_sleep * 1e3) == 1)
+			return (NULL);
 	}
 	return (NULL);
 }
@@ -91,7 +103,7 @@ int ft_isdead(t_table *table)
 	i = -1;
 	while (++i < table->nbr_of_philos)
 	{
-		elapsed = ft_get_time() - ft_get_long(&table->eatmtx, &table->philos[i].last_m);
+		elapsed = ft_get_time() - ft_get_long(&table->last_mtx, &table->philos[i].last_m);
 		if (elapsed >= table->time_to_die)
 		{
 			ft_set_bool(&table->deadcheck, &table->end, true);
@@ -105,14 +117,10 @@ int ft_isdead(t_table *table)
 void	*monitor(void *data)
 {
 	t_table *table = (t_table *)data;
-	int i;
 	usleep(1000);
 	while (!ft_isfull(table))
 		if (ft_isdead(table))
 			break;
-	i = -1;
-	while (++i < table->nbr_of_philos)
-		ft_mutex_mode(&table->forks[i], DESTROY);
 	return (NULL);
 }
 

@@ -6,7 +6,7 @@
 /*   By: abenajib <abenajib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 20:59:26 by codespace         #+#    #+#             */
-/*   Updated: 2025/04/29 10:42:46 by abenajib         ###   ########.fr       */
+/*   Updated: 2025/05/07 20:09:30 by abenajib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ typedef struct s_table
 	long		nbr_of_times_to_eat;
 	t_mtx		printer;
 	t_mtx		eatmtx;
+	t_mtx		last_mtx;
 	t_mtx		deadcheck;
 }			t_table;
 

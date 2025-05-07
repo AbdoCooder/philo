@@ -6,7 +6,7 @@
 /*   By: abenajib <abenajib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/27 17:55:26 by abenajib          #+#    #+#             */
-/*   Updated: 2025/05/04 10:37:17 by abenajib         ###   ########.fr       */
+/*   Updated: 2025/05/07 20:46:59 by abenajib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	ft_print(t_philo *philo, t_action action)
 {
-	ft_mutex_mode(&philo->table->printer, LOCK);
 	if (ft_get_bool(&philo->table->deadcheck, &philo->table->end) == true && action != DIE)
 		return ;
+	ft_mutex_mode(&philo->table->printer, LOCK);
 	if (action == EAT)
 		printf("%ld %d is eating\n", ft_get_time() - philo->table->start,
 			philo->id);
