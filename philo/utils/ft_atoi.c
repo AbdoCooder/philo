@@ -6,7 +6,7 @@
 /*   By: abenajib <abenajib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/22 20:04:35 by abenajib          #+#    #+#             */
-/*   Updated: 2025/05/10 12:38:19 by abenajib         ###   ########.fr       */
+/*   Updated: 2025/05/10 19:25:18 by abenajib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ int	ft_usleep(t_philo *philo, useconds_t t)
 		if (ft_get_bool(&philo->table->end_mtx, &philo->table->end))
 			return (1);
 		gettimeofday(&current, NULL);
-		// 1 second = 1,000,000 microseconds
 		elapsed = (current.tv_sec - start.tv_sec) * 1000000L
 			+ (current.tv_usec - start.tv_usec);
 		if (elapsed >= t)

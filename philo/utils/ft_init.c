@@ -6,17 +6,32 @@
 /*   By: abenajib <abenajib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:15:25 by abenajib          #+#    #+#             */
-/*   Updated: 2025/05/10 12:25:31 by abenajib         ###   ########.fr       */
+/*   Updated: 2025/05/10 19:25:10 by abenajib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void	ft_init(t_table *table, int ac, char **av)
+void	ft_mutexes_inits(t_table *table)
 {
 	int	i;
 
 	i = -1;
+	ft_mutex_mode(&table->printer, INIT);
+	ft_mutex_mode(&table->eatmtx, INIT);
+	ft_mutex_mode(&table->last_mtx, INIT);
+	ft_mutex_mode(&table->end_mtx, INIT);
+	ft_mutex_mode(&table->start_mtx, INIT);
+	while (++i < table->nbr_of_philos)
+	{
+		ft_mutex_mode(&table->forks[i], INIT);
+		ft_pthread_mode(&table->philos[i].t, routine, &table->philos[i],
+			CREATE);
+	}
+}
+
+void	ft_init(t_table *table, int ac, char **av)
+{
 	table->end = false;
 	table->nbr_of_philos = ft_atoi(av[NBR_OF_PHILOS_ARG]);
 	table->time_to_die = ft_atoi(av[TIME_TO_DIE_ARG]);
@@ -30,17 +45,7 @@ void	ft_init(t_table *table, int ac, char **av)
 	table->forks = ft_malloc(sizeof(t_mtx) * table->nbr_of_philos);
 	table->monitor = ft_malloc(sizeof(t_pthread));
 	ft_init_philos(table);
-	while (++i < table->nbr_of_philos)
-	{
-		ft_mutex_mode(&table->forks[i], INIT);
-		ft_pthread_mode(&table->philos[i].t, routine, &table->philos[i],
-			CREATE);
-	}
-	ft_mutex_mode(&table->printer, INIT);
-	ft_mutex_mode(&table->eatmtx, INIT);
-	ft_mutex_mode(&table->last_mtx, INIT);
-	ft_mutex_mode(&table->end_mtx, INIT);
-	ft_mutex_mode(&table->start_mtx, INIT);
+	ft_mutexes_inits(table);
 }
 
 void	ft_init_philos(t_table *table)

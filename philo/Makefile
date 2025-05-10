@@ -1,6 +1,6 @@
 TARGET = philo
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=thread -g
+CFLAGS = -Wall -Wextra -Werror
 SRCS=	./mandatory/$(TARGET).c \
 		./utils/ft_error.c \
 		./utils/ft_atoi.c \
@@ -10,6 +10,8 @@ SRCS=	./mandatory/$(TARGET).c \
 		./utils/ft_init.c \
 		./utils/ft_printer.c \
 		./utils/setsGets.c \
+		./utils/end_checkers.c \
+		./utils/ft_eat.c \
 
 RM = rm -rf
 NAME = $(TARGET).a

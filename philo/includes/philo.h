@@ -6,7 +6,7 @@
 /*   By: abenajib <abenajib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 20:59:26 by codespace         #+#    #+#             */
-/*   Updated: 2025/05/10 12:24:05 by abenajib         ###   ########.fr       */
+/*   Updated: 2025/05/10 19:31:58 by abenajib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,5 +144,9 @@ long		ft_get_time(void);
 
 // simulation
 void		*routine(void *data);
+int			ft_eat(t_philo *philo);
+void		*ft_take_forks(t_philo *philo);
+int			ft_isfull(t_table *table);
+int			ft_isdead(t_table *table);
 
 #endif
