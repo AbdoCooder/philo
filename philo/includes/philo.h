@@ -6,7 +6,7 @@
 /*   By: abenajib <abenajib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 20:59:26 by codespace         #+#    #+#             */
-/*   Updated: 2025/05/07 20:09:30 by abenajib         ###   ########.fr       */
+/*   Updated: 2025/05/10 12:24:05 by abenajib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,10 @@ typedef struct s_table
 	long		time_to_sleep;
 	long		nbr_of_times_to_eat;
 	t_mtx		printer;
+	t_mtx		start_mtx;
 	t_mtx		eatmtx;
 	t_mtx		last_mtx;
-	t_mtx		deadcheck;
+	t_mtx		end_mtx;
 }			t_table;
 
 struct s_philo

@@ -6,7 +6,7 @@
 /*   By: abenajib <abenajib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/12 17:15:25 by abenajib          #+#    #+#             */
-/*   Updated: 2025/05/07 20:11:25 by abenajib         ###   ########.fr       */
+/*   Updated: 2025/05/10 12:25:31 by abenajib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ void	ft_init(t_table *table, int ac, char **av)
 	ft_mutex_mode(&table->printer, INIT);
 	ft_mutex_mode(&table->eatmtx, INIT);
 	ft_mutex_mode(&table->last_mtx, INIT);
-	ft_mutex_mode(&table->deadcheck, INIT);
+	ft_mutex_mode(&table->end_mtx, INIT);
+	ft_mutex_mode(&table->start_mtx, INIT);
 }
 
 void	ft_init_philos(t_table *table)

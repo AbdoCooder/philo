@@ -1,6 +1,6 @@
 TARGET = philo
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fsanitize=thread -g
 SRCS=	./mandatory/$(TARGET).c \
 		./utils/ft_error.c \
 		./utils/ft_atoi.c \
