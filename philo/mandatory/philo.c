@@ -6,11 +6,12 @@
 /*   By: abenajib <abenajib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 18:41:53 by abenajib          #+#    #+#             */
-/*   Updated: 2025/05/10 19:31:46 by abenajib         ###   ########.fr       */
+/*   Updated: 2025/05/12 21:17:35 by abenajib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+//./philo 150 150 60 60
 
 void	ft_start(t_philo *philo)
 {
